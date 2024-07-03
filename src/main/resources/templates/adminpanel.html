@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<style>
+    html{
+    height: 100%;
+    }
+    body
+    {
+
+    background-color: rgba(33, 33, 33, 1);
+    background-image: radial-gradient(circle, rgba(33, 33, 33, 1) 8%, rgba(0, 0, 0, 1) 76%);
+    color: white;
+    margin: 0px;
+    padding: 0px;
+    font-family: monospace;
+    width: 100%;
+    height: 100%;
+    }
+
+    .navigationBar
+    {
+
+        background-color: black;
+        width: 100%;
+        height: 40px;
+    }
+
+    .nav-item
+    {
+        border-style: solid;
+        border-width: 2px;
+        border-color: black;
+        float: left;
+        margin: 10px 0px 10px 10px;
+        text-decoration: none;
+        color: white;
+    }
+    .nav-item:hover
+    {
+        color: white;
+        border-style: solid;
+        border-width: 2px;
+        border-color: white;
+        float: left;
+        margin: 10px 0px 10px 10px;
+        text-decoration: none;
+    }
+
+    .booksDisplay
+    {
+        width:80%;
+        text-align: center;
+        margin: 0 auto;
+    }
+
+    .bookCard{
+        float: left;
+        text-wrap: nowrap;
+        text-overflow: hidden;
+        margin: 0px auto 15px 20px;
+        border-style: solid;
+        border-width: 2px;
+        border-color: black;
+        border-radius: 2px;
+        padding: 5px;
+        box-shadow: 0px 0px 30px -20px rgba(255, 255, 255, 1);
+    }
+
+    .bookImg{
+        width: 200px;
+        height: 200px;
+        border-radius: 5px;
+        border: solid 2px #121212;
+    }
+    .card-text{
+
+        margin: 5px;
+
+    }
+    .card-title{
+        margin: 5px;
+
+    }
+
+    .card-author{
+        margin: 0px auto 0px auto;
+    }
+
+    .editButton{
+        margin: 10px;
+        padding: 3px 5px 3px 5px;
+        text-decoration: none;
+        color: white;
+        background-color: black;
+    }
+    .editButton:hover{
+        background-color: white;
+        color: black;
+    }
+
+
+
+    .deleteButton{
+        margin: 10px auto auto auto;
+        border-style: solid;
+        border-width: 2px;
+        border-color: black;
+        background-color: black;
+        color: white;
+    }
+
+    .deleteButton:hover{
+        border-color: white;
+        background-color:white;
+        color: black;
+    }
+
+    .newBookButton{
+        border-style: solid;
+        border-width: 2px;
+        border-color: black;
+        float: left;
+        margin: 10px 0px 10px 10px;
+        text-decoration: none;
+        color: black;
+        background-color: white;
+        border
+    }
+
+    .newBookButton:hover{
+        border-color: white;
+        color: white;
+        background-color: black;
+    }
+
+    .logoutButton{
+        border-style: solid;
+        border-width: 2px;
+        border-color: black;
+        float: right;
+        margin: 10px;
+        background-color: white;
+        color: black;
+    }
+    .logoutButton:hover{
+        border-color: white;
+        background-color: black;
+        color: white;
+    }
+</style>
+<body>
+<div class="navigationBar">
+    <a class="nav-item" href="/main">Księgarnia</a>
+    <a class="nav-item" href="/main">Strona główna</a>
+    <form method="get" th:action="@{book/add}">
+        <input type="submit" value="Dodaj nowa ksiazke" class="newBookButton">
+    </form>
+    <form th:action="@{/logout}" method="post">
+        <button type="submit" class="logoutButton">Wyloguj się</button>
+    </form>
+    <a class="nav-item" href="/adminpanel" style="float:right; margin: 10px;">Admin enabled</a>
+</div>
+<div class="booksDisplay">
+    <h2>Lista książek</h2>
+    <div th:each="book : ${books}" class="bookCard">
+        <img th:src="${book.imageURL}" class="bookImg" alt="Okładka książki">
+        <h4 class="card-title" th:text="${book.title}">Tytuł książki</h4>
+        <p class="card-author" th:text="${book.author}">Autor książki</p>
+        <h4 class="card-text" th:text="${book.price} + ' PLN'">Cena książki</h4>
+        <p class="card-text" th:text="'Ilość: ' + ${book.quantity}">Ilość</p>
+        <a th:href="@{/book/update/{id}(id=${book.id})}" class="editButton">Edytuj</a>
+        <form method="post" th:action="@{/book/delete}">
+            <input type="hidden" th:name="id" th:value="${book.id}" />
+<!--            <input type="submit" value="Usuń"  />-->
+            <button class="deleteButton">USUN</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

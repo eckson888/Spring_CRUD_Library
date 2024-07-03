@@ -1,0 +1,9 @@
+package com.example.logowanie.repository;
+
+import com.example.logowanie.model.Cart;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface CartRepository extends JpaRepository<Cart, Integer>
+{
+
+}

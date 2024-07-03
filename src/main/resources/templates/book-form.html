@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+        html{
+    height: 100%;
+
+    }
+    body
+    {
+background-color: rgba(0, 0, 0, 1);
+background-image: radial-gradient(circle, rgba(0, 0, 0, 1) 35%, rgba(33, 33, 33, 1) 100%);
+    color: white;
+    margin: 0px;
+    padding: 0px;
+    font-family: monospace;
+    width: 100%;
+    height: 100%;
+    }
+
+    .navigationBar
+    {
+
+        background-color: black;
+        width: 100%;
+        height: 40px;
+    }
+
+    .nav-item
+    {
+        border-style: solid;
+        border-width: 2px;
+        border-color: black;
+        float: left;
+        margin: 10px 0px 10px 10px;
+        text-decoration: none;
+        color: white;
+    }
+    .nav-item:hover
+    {
+        color: white;
+        border-style: solid;
+        border-width: 2px;
+        border-color: white;
+        float: left;
+        margin: 10px 0px 10px 10px;
+        text-decoration: none;
+    }
+    .logoutButton{
+        border-style: solid;
+        border-width: 2px;
+        border-color: black;
+        float: right;
+        margin: 10px;
+        background-color: white;
+        color: black;
+    }
+    .logoutButton:hover{
+        border-color: white;
+        background-color: black;
+        color: white;
+    }
+    .bookForm{
+        justify-content: center;
+        display: flex;
+        margin-top: 50px;
+
+    }
+
+    .input-field{
+        background-color: black;
+        color: white;
+        border: solid 1px white;
+        margin: auto 5px auto 5px;
+    }
+    .addButton{
+        background-color: white;
+        color: black;
+        border: solid 1px black;
+    }
+        .addButton:hover{
+        background-color: black;
+        color: white;
+        border: solid 1px white;
+    }
+    </style>
+</head>
+<body>
+<div class="navigationBar">
+    <a class="nav-item" href="/main">Księgarnia</a>
+    <a class="nav-item" href="/main">Strona główna</a>
+    <form th:action="@{/logout}" method="post">
+        <button type="submit" class="logoutButton">Wyloguj się</button>
+    </form>
+    <a class="nav-item" href="/adminpanel" style="float:right; margin: 10px;">Admin enabled</a>
+</div>
+<div class="bookForm">
+    <form method="post">
+        <input type="text" placeholder="Tytuł" class="input-field" th:field="*{book.title}" id="title">
+        <input type="text" placeholder="Autor" class="input-field" th:field="*{book.author}" id="author">
+        <input type="text" placeholder="Cena" class="input-field" th:field="*{book.price}" id="price">
+        <input type="text" placeholder="Ilość" class="input-field" th:field="*{book.quantity}" id="quantity">
+        <input type="text" placeholder="URL Obrazka" class="input-field" th:field="*{book.imageURL}" id="url">
+        <input type="submit" value="Dodaj" class="addButton">
+    </form>
+</div>
+</body>
+</html>

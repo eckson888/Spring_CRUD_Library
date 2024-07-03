@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:method="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Login</title>
+</head>
+
+<style>
+    body
+    {
+        background-color: #212121;
+        color: white;
+        margin: 0px;
+        padding: 0px;
+        font-family: monospace;
+        width: 100%;
+        text-align: center;
+    }
+    .loginPanel{
+        border: solid 1px black;
+        border-radius: 10px;
+        box-shadow: 0px 0px 100px 15px rgba(0, 0, 0, 1);
+        width: 200px;
+        margin: auto;
+        padding: 15px;
+    }
+    .loginInput{
+        margin: 5px;
+        border-radius: 5px;
+        height: 30px;
+    }
+
+    .msg{
+        margin: 15px;
+        font-size: 15px;
+    }
+
+      .loginButton{
+      width: 100px;
+        border-style: solid;
+        border-width: 2px;
+        border-color: black;
+        margin: 5px;
+        background-color: white;
+        color: black;
+        border-radius: 5px;
+    }
+    .loginButton:hover{
+        border-color: white;
+        background-color: black;
+        color: white;
+    }
+
+    .loginHeader{
+        margin: 200px auto 15px auto;
+    }
+    .registerButton
+    {
+        width: 100px;
+        border-style: solid;
+        border-width: 2px;
+        border-color: black;
+        margin: 5px;
+        background-color: white;
+        color: black;
+        border-radius: 5px;
+    }
+
+    .registerButton:hover{
+        border-color: white;
+        background-color: black;
+        color: white;
+    }
+
+</style>
+
+<body>
+<div th:if="${errorMessage}" th:text="${errorMessage}" class="msg"></div>
+<div th:if="${logoutMessage}" th:text="${logoutMessage}" class="msg"></div>
+<div th:if="${message}" th:text="${message}" class="msg"></div>
+<h1 class="loginHeader">Logowanie</h1>
+
+<form th:action="@{/login}" method="post" class="loginPanel">
+    <div>
+<!--        <label for="username">Nazwa użytkownika:</label>-->
+        <input type="text" class="loginInput" id="username" name="username" placeholder="username" required/>
+    </div>
+    <div>
+<!--        <label for="password">Hasło:</label>-->
+        <input type="password" class="loginInput" id="password" name="password" placeholder="password" required />
+    </div>
+    <div>
+        <button type="submit" class="loginButton">Zaloguj się</button>
+    </div>
+    <div>
+        <button onclick="location.href='/register'" type="button" class="registerButton">Zarejestruj sie</button>
+    </div>
+</form>
+</body>
+</html>

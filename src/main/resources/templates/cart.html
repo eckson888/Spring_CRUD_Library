@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Koszyk</title>
+</head>
+
+<style>
+    html{
+    height: 100%;
+    }
+
+body
+{
+background-color: rgba(33, 33, 33, 1);
+background-image: radial-gradient(circle, rgba(33, 33, 33, 1) 8%, rgba(0, 0, 0, 1) 76%);
+    color: white;
+    margin: 0px;
+    padding: 0px;
+    font-family: monospace;
+    width: 100%;
+    height: 100%;
+}
+.navigationBar
+    {
+
+        background-color: black;
+        width: 100%;
+        height: 40px;
+    }
+
+    .nav-item
+    {
+        border-style: solid;
+        border-width: 2px;
+        border-color: black;
+        float: left;
+        margin: 10px 0px 10px 10px;
+        text-decoration: none;
+        color: white;
+    }
+    .nav-item:hover
+    {
+        color: white;
+        border-style: solid;
+        border-width: 2px;
+        border-color: white;
+        float: left;
+        margin: 10px 0px 10px 10px;
+        text-decoration: none;
+    }
+    .logoutButton{
+        border-style: solid;
+        border-width: 2px;
+        border-color: black;
+        float: right;
+        margin: 10px;
+        background-color: white;
+        color: black;
+    }
+    .logoutButton:hover{
+        border-color: white;
+        background-color: black;
+        color: white;
+    }
+
+    .cartContainer{
+        width:50%;
+        margin: auto;
+
+    }
+
+    td{
+        padding: 5px 15px 5px 15px;
+        vertical-align: middle;
+    }
+    .deleteButton{
+        border-style: solid;
+        border-width: 2px;
+        border-color: black;
+        background-color: black;
+        color: white;
+    }
+
+    .deleteButton:hover{
+        border-color: white;
+        background-color:white;
+        color: black;
+    }
+
+
+</style>
+<body>
+<div class="navigationBar">
+    <a class="nav-item" href="/main">Księgarnia</a>
+    <a class="nav-item" href="/main">Strona główna</a>
+    <a sec:authorize="hasAuthority('USER')" class="nav-item" href="/cart">Koszyk</a>
+    <form th:action="@{/logout}" method="post">
+        <button type="submit" class="logoutButton">Wyloguj się</button>
+    </form>
+    <a sec:authorize="hasAuthority('ADMIN')" class="nav-item" href="/adminpanel" style="float:right; margin: 10px;">Admin</a>
+</div>
+<h1 style="text-align: center;">Koszyk</h1>
+<div th:if="${cart.items.isEmpty()}" style="text-align: center;">
+    <p>Koszyk pusty.</p>
+</div>
+<div th:unless="${cart.items.isEmpty()}" class="cartContainer">
+    <table style="vertical-align: middle;">
+        <tbody>
+        <tr th:each="item : ${cart.items}" style="font-size: 15px; margin: 15px auto 15px auto;background-color: #121212; vertical-align: middle; display: inline-flex; border: solid 2px black; border-radius: 5px; width: 700px; justify-content: space-between;">
+            <td><img th:src="${item.book.imageURL}" class="bookImg" alt="Okładka książki" style="height: 75px; width:75px; border-radius: 5px;"></td>
+            <td th:text="${item.book.title}" ></td>
+            <td th:text="${item.book.author}" ></td>
+            <td th:text="${item.book.price}" ></td>
+            <td th:text="${item.quantity}" ></td>
+            <td>
+                <form th:action="@{/cart/remove/{bookId}(bookId=${item.book.id})}" method="get">
+                    <button class="deleteButton"type="submit">USUN</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
